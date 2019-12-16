@@ -5,21 +5,22 @@ const App = (props) => {
 
   const [selected, setSelected] = useState(0)
 
+  const [max, setMax] = useState(0)
+
   const points = [0, 0, 0, 0, 0, 0]
 
   const[pointsvotes,setPointsvotes] = useState(points)
 
-  let max = 0
-
  const modifyPointsVote = () => {
 	let copy = [...pointsvotes]
 	copy[selected] += 1
-	selectMax()    
+	selectMax(copy)    
 	return copy
   }
 
-  const selectMax = () => {
-	   max = Math.max.apply(null, pointsvotes);
+  const selectMax = (copy) => {
+    const indexOfMaxValue = copy.indexOf(Math.max.apply(Math, copy));
+  	setMax(indexOfMaxValue)
   }
 
   
@@ -43,7 +44,7 @@ const App = (props) => {
 	  </p> 
 	  <h1>Anecdote with most votes</h1>
 	  <p>
-		  
+	  {anecdotes[max]} has {pointsvotes[max]} votes
 	  </p>
 	</>
   )
